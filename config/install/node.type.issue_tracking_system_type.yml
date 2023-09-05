@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - issue_tracking_system
+name: 'Issue tracking system'
+type: issue_tracking_system_type
+description: 'Issue tracking system content type for assign issue to drupal user.'
+help: 'This content type is specially for assign issue to user.'
+new_revision: false
+preview_mode: 1
+display_submitted: true
