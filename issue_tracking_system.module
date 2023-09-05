@@ -150,6 +150,16 @@ function issue_tracking_system_install() {
         ]
       ],
     ),
+    array(
+      'label' => "Due date",
+      'description' => "Due date",
+      'machineName' => "due_date",
+      'type' => "datetime",
+      'formDisplayType' => "datetime_default",
+      'settings' => [
+        'datetime_type' => "date",
+      ],
+    ),
   );
   $service = \Drupal::service('issue_tracking_system.helper');
   foreach ($fieldsInfo as $fieldInfo) {

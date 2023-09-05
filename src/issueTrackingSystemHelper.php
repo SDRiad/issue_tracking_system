@@ -103,11 +103,16 @@ class issueTrackingSystemHelper {
         'translatable' => TRUE,
         'description' => t($fieldInfo['description']),
       );
-      if ($fieldInfo['settings']['target_type'] ==  'taxonomy_term') {
-        $fieldStorageConfig['settings']['target_type'] = $fieldInfo['settings']['target_type'];
-        $fieldConfig['settings']['handler'] = $fieldInfo['settings']['handler'];
-        $fieldConfig['settings']['handler_settings']['target_bundles'] = $fieldInfo['settings']['handler_settings']['target_bundles'];
-        $fieldConfig['settings']['handler_settings']['sort'] = $fieldInfo['settings']['handler_settings']['sort'];
+      if (isset($fieldInfo['settings']['target_type'])) {
+        if ($fieldInfo['settings']['target_type'] ==  'taxonomy_term') {
+          $fieldStorageConfig['settings']['target_type'] = $fieldInfo['settings']['target_type'];
+          $fieldConfig['settings']['handler'] = $fieldInfo['settings']['handler'];
+          $fieldConfig['settings']['handler_settings']['target_bundles'] = $fieldInfo['settings']['handler_settings']['target_bundles'];
+          $fieldConfig['settings']['handler_settings']['sort'] = $fieldInfo['settings']['handler_settings']['sort'];
+        }
+      }
+      else {
+        $fieldStorageConfig['settings'] = $fieldInfo['settings'];
       }
 
       FieldStorageConfig::create($fieldStorageConfig)->save();
