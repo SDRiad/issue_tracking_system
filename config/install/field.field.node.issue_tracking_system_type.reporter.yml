@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.reporter
+    - node.type.issue_tracking_system_type
+id: node.issue_tracking_system_type.reporter
+field_name: reporter
+entity_type: node
+bundle: issue_tracking_system_type
+label: 'Reporter'
+description: 'node author'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+field_type: entity_reference
