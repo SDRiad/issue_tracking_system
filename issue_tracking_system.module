@@ -87,6 +87,77 @@ function issue_tracking_system_module_preinstall() {
     $service->createTaxonomyVocabulary($vocabularyInfo);
   }
 }
+
+function issue_tracking_system_install() {
+  $fieldsInfo = array(
+    array(
+      'label' => "Issue type",
+      'description' => "Issue type",
+      'machineName' => "issue_type",
+      'type' => "entity_reference",
+      'formDisplayType' => "options_select",
+      'settings' => [
+        'target_type' => "taxonomy_term",
+        'handler' => "default:taxonomy_term",
+        'handler_settings' => [
+          'target_bundles' => [
+            'issue_type' => "issue_type"
+          ],
+          'sort' => [
+            'field' => "name",
+            'direction' => "asc",
+          ]
+        ]
+      ],
+    ),
+    array(
+      'label' => "Priority",
+      'description' => "Priority",
+      'machineName' => "issue_priority",
+      'type' => "entity_reference",
+      'formDisplayType' => "options_select",
+      'settings' => [
+        'target_type' => "taxonomy_term",
+        'handler' => "default:taxonomy_term",
+        'handler_settings' => [
+          'target_bundles' => [
+            'priority' => "priority"
+          ],
+          'sort' => [
+            'field' => "name",
+            'direction' => "asc",
+          ]
+        ]
+      ],
+    ),
+    array(
+      'label' => "Status",
+      'description' => "Status",
+      'machineName' => "issue_status",
+      'type' => "entity_reference",
+      'formDisplayType' => "options_select",
+      'settings' => [
+        'target_type' => "taxonomy_term",
+        'handler' => "default:taxonomy_term",
+        'handler_settings' => [
+          'target_bundles' => [
+            'status' => "status"
+          ],
+          'sort' => [
+            'field' => "name",
+            'direction' => "asc",
+          ]
+        ]
+      ],
+    ),
+  );
+  $service = \Drupal::service('issue_tracking_system.helper');
+  foreach ($fieldsInfo as $fieldInfo) {
+    $service->createContentTypeField($fieldInfo);
+  }
+}
+
+
 function issue_tracking_system_module_preuninstall() {
   $vocabulariesVid = ["issue_type", "priority", "status"];
   $service = \Drupal::service('issue_tracking_system.helper');

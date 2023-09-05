@@ -85,9 +85,6 @@ class issueTrackingSystemHelper {
     }
   }
 
-  /**
-   * @return EntityTypeManagerInterface
-   */
   public function createContentTypeField($fieldInfo)
   {
     $field_storage = FieldStorageConfig::loadByName('node', $fieldInfo['machineName']);
