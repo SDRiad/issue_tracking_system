@@ -5,6 +5,8 @@ namespace Drupal\issue_tracking_system;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\taxonomy\VocabularyStorageInterface;
 use Drupal\taxonomy\TermStorageInterface;
+use \Drupal\field\Entity\FieldStorageConfig;
+use \Drupal\field\Entity\FieldConfig;
 
 /**
  * Class issue_tracking_system_helper
@@ -73,7 +75,7 @@ class issueTrackingSystemHelper {
     }
   }
 
-  function deleteVocabulary($vid) {
+  public function deleteVocabulary($vid) {
     if ($this->isVocabularyExist($vid)) {
       $vocabulary = $this->vocabularyStorage->load($vid);
       if ($vocabulary) {
@@ -82,6 +84,61 @@ class issueTrackingSystemHelper {
       }
     }
   }
+
+  /**
+   * @return EntityTypeManagerInterface
+   */
+  public function createContentTypeField($fieldInfo)
+  {
+    $field_storage = FieldStorageConfig::loadByName('node', $fieldInfo['machineName']);
+    if (empty($field_storage)) {
+      $fieldStorageConfig = array(
+        'field_name' => $fieldInfo['machineName'],
+        'entity_type' => 'node',
+        'type' => $fieldInfo['type'],
+      );
+      $fieldConfig = array(
+        'field_name' => $fieldInfo['machineName'],
+        'entity_type' => 'node',
+        'bundle' => 'issue_tracking_system_type',
+        'label' => $fieldInfo['label'],
+        'required' => TRUE,
+        'translatable' => TRUE,
+        'description' => t($fieldInfo['description']),
+      );
+      if ($fieldInfo['settings']['target_type'] ==  'taxonomy_term') {
+        $fieldStorageConfig['settings']['target_type'] = $fieldInfo['settings']['target_type'];
+        $fieldConfig['settings']['handler'] = $fieldInfo['settings']['handler'];
+        $fieldConfig['settings']['handler_settings']['target_bundles'] = $fieldInfo['settings']['handler_settings']['target_bundles'];
+        $fieldConfig['settings']['handler_settings']['sort'] = $fieldInfo['settings']['handler_settings']['sort'];
+      }
+
+      FieldStorageConfig::create($fieldStorageConfig)->save();
+
+      FieldConfig::create($fieldConfig)->save();
+
+      $this->entityTypeManager->getStorage('entity_view_display')->load('node.issue_tracking_system_type.default')
+        ->setComponent($fieldInfo['machineName'], [
+        'label' => 'above',
+        'type' => 'entity_reference_label',
+        'settings' => ['link' => 'true'],
+        'region' => 'content',
+      ])->save();
+      $this->entityTypeManager->getStorage('entity_view_display')->load('node.issue_tracking_system_type.teaser')
+        ->setComponent($fieldInfo['machineName'], [
+        'label' => 'above',
+        'type' => 'entity_reference_label',
+        'settings' => ['link' => 'true'],
+        'region' => 'content',
+      ])->save();
+      $this->entityTypeManager->getStorage('entity_form_display')->load('node.issue_tracking_system_type.default')
+        ->setComponent($fieldInfo['machineName'], [
+        'type' => $fieldInfo['formDisplayType'],
+        'region' => 'content',
+      ])->save();
+    }
+  }
+
   public function isTermExist($vid, $termName){
 
     $terms = $this->termStorage->loadTree($vid);
