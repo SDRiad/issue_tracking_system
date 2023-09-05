@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.assignee
+    - node.type.issue_tracking_system_type
+id: node.issue_tracking_system_type.assignee
+field_name: assignee
+entity_type: node
+bundle: issue_tracking_system_type
+label: 'Assignee'
+description: 'Drupal user'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+field_type: entity_reference
