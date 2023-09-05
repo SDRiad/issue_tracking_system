@@ -1,0 +1,4 @@
+services:
+  issue_tracking_system.helper:
+    class: Drupal\issue_tracking_system\issueTrackingSystemHelper
+    arguments: ['@entity_type.manager']
