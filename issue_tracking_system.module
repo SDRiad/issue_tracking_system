@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Module issue_tracking_system.
+ */
+
+function issue_tracking_system_module_preinstall() {
+  $vocabulariesInfo = array(
+    array(
+      "vid" => "issue_type",
+      "name" => "Issue type",
+      "description" => "Issue type vocabulary",
+      "terms" => [
+        [
+          "name" => "New feature",
+          "description" => "New feature issue type",
+        ],
+        [
+          "name" => "Change",
+          "description" => "Change issue type",
+        ],
+        [
+          "name" => "Task",
+          "description" => "Task issue type",
+        ],
+        [
+          "name" => "Bug",
+          "description" => "Bug issue type",
+        ],
+        [
+          "name" => "Improvement",
+          "description" => "Improvement issue type",
+        ],
+      ],
+    ),
+    array(
+      "vid" => "priority",
+      "name" => "Priority",
+      "description" => "Priority vocabulary",
+      "terms" => [
+        [
+          "name" => "Critical",
+          "description" => "Critical priority",
+        ],
+        [
+          "name" => "High",
+          "description" => "High priority",
+        ],
+        [
+          "name" => "Low",
+          "description" => "Low priority",
+        ],
+        [
+          "name" => "Trivial",
+          "description" => "Trivial priority",
+        ],
+      ],
+    ),
+    array(
+      "vid" => "status",
+      "name" => "Status",
+      "description" => "Status vocabulary",
+      "terms" => [
+        [
+          "name" => "To Do",
+          "description" => "To do status",
+        ],
+        [
+          "name" => "In Progress",
+          "description" => "In progress status",
+        ],
+        [
+          "name" => "In Review",
+          "description" => "In review status",
+        ],
+        [
+          "name" => "Done",
+          "description" => "Done status",
+        ],
+      ],
+    ),
+  );
+
+  $service = \Drupal::service('issue_tracking_system.helper');
+  foreach ($vocabulariesInfo as $vocabularyInfo) {
+    $service->createTaxonomyVocabulary($vocabularyInfo);
+  }
+}
+function issue_tracking_system_module_preuninstall() {
+  $vocabulariesVid = ["issue_type", "priority", "status"];
+  $service = \Drupal::service('issue_tracking_system.helper');
+  foreach ($vocabulariesVid as $vid) {
+    $service->deleteVocabulary($vid);
+  }
+}
+
+
+
