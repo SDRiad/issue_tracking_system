@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.issue_tracking_system_type.body
+    - node.type.issue_tracking_system_type
+  module:
+    - text
+    - user
+id: node.issue_tracking_system_type.default
+targetEntityType: node
+bundle: issue_tracking_system_type
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden: {  }
