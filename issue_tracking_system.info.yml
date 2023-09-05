@@ -1,0 +1,8 @@
+name: Issue tracking system
+type: module
+description: 'Creating issue tracking system content type for assign issue to drupal user.'
+package: custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node
+  - drupal:user
