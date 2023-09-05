@@ -3,21 +3,40 @@ status: true
 dependencies:
   config:
     - field.field.node.issue_tracking_system_type.body
+    - field.field.node.issue_tracking_system_type.reporter
+    - field.field.node.issue_tracking_system_type.assignee
+    - field.field.node.issue_tracking_system_type.list_watchers
     - node.type.issue_tracking_system_type
   module:
+    - path
     - text
-    - user
 id: node.issue_tracking_system_type.default
 targetEntityType: node
 bundle: issue_tracking_system_type
 mode: default
 content:
   body:
-    label: hidden
     type: text_textarea_with_summary
-    weight: 101
+    weight: 1
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+  reporter:
+    type: options_select
+    weight: 2
+    region: content
+    settings: { }
+  assignee:
+    type: options_select
+    weight: 3
+    region: content
     settings: {  }
-    third_party_settings: {  }
-  links:
-    weight: 100
+  list_watchers:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings: {  }
 hidden: {  }
