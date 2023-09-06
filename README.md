@@ -1,6 +1,6 @@
-# Issue Tracking System Block
+# Issue Tracking System
 
-Issue Tracking System Block intends to improve the team of Drupal user to transform infos about issue faster and easy to read into
+Issue Tracking System intends to improve the workflow in the team of Drupal user, it help transform infos about issue faster and easier to reachthe specific drupal user from
 any other drupal user, providing a fast and full access to all administrator.
 
 
