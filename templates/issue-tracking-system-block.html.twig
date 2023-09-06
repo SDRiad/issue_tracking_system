@@ -1,0 +1,49 @@
+<style>
+  .card {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    height: auto;
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
+</style>
+{% for node in nodes %}
+  <div class="card">
+    <h3>
+      {{ node.name }}
+    </h3>
+    <div>
+      {{ node.desc|raw }}
+      <ul>
+        <li>
+          Reporter : {{ node.reporter }}
+        </li>
+        <li>
+          Assignee : {{ node.assignee }}
+        </li>
+        <li>
+          List of watchers :
+          <ul>
+            {% for list_watcher in node.list_watchers %}
+              <li> {{ list_watcher }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li>
+          Issue type : {{ node.issue_type }}
+        </li>
+        <li>
+          Priority : {{ node.issue_priority }}
+        </li>
+        <li>
+          Status : {{ node.issue_status }}
+        </li>
+        <li>
+          Due date : {{ node.due_date }}
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endfor %}

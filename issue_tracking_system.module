@@ -5,6 +5,16 @@
  * Module issue_tracking_system.
  */
 
+function issue_tracking_system_theme(){
+  return [
+    "issue_tracking_system_block" => [
+      "variables" => [
+        "nodes" => NULL,
+      ],
+    ],
+  ];
+}
+
 function issue_tracking_system_module_preinstall() {
   $vocabulariesInfo = array(
     array(
