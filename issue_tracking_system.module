@@ -15,6 +15,15 @@ function issue_tracking_system_theme(){
   ];
 }
 
+function issue_tracking_system_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'node_issue_tracking_system_type_form') {
+    $current_user = \Drupal::currentUser();
+    $uid = $current_user->id();
+    $form['reporter']['#disabled'] = TRUE;
+    $form['reporter']['widget']['#value'] = $uid;
+  }
+}
+
 function issue_tracking_system_module_preinstall() {
   $vocabulariesInfo = array(
     array(
